@@ -6,7 +6,16 @@
 2. Execute the `docker compose` command
 
 ```shell
-docker compose up -d`
+#Compose and start docker containers
+docker compose up -d
+
+##### OTHER DOCKER COMMANDS #####
+# Docker container status
+docker ps
+# Stop all docker containers
+docker stop $(docker ps -a -q)
+# Remove all container
+docker rm $(docker ps -a -q)
 ```
 
 This workbench provides a simulated observability stack for a supergraph.
