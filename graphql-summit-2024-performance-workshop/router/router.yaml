@@ -1,0 +1,74 @@
+supergraph:
+  introspection: true
+  listen: 0.0.0.0:4000
+  query_planning:
+    cache:
+      in_memory:
+        limit: 100
+    warmed_up_queries: 5
+
+sandbox:
+  enabled: true
+homepage:
+  enabled: false
+
+include_subgraph_errors:
+  all: true
+plugins:
+  experimental.expose_query_plan: true
+health_check:
+  enabled: true
+
+telemetry:
+  exporters:
+    logging:
+      stdout:
+        tty_format: json
+        rate_limit:
+          capacity: 1
+          enabled: true
+          interval: 10s
+        enabled: true
+    tracing:
+      common:
+        sampler: 0.05
+      otlp:
+        enabled: true
+        endpoint: tempo:4317
+    metrics:
+      prometheus:
+        enabled: true
+        listen: 0.0.0.0:9090
+        path: /metrics
+
+traffic_shaping:
+  router:
+    timeout: 5s
+    global_rate_limit:
+      capacity: 1000
+      interval: 1s
+  all:
+    timeout: 1s
+    global_rate_limit:
+      capacity: 100
+      interval: 1s
+      deduplicate_query: true
+  subgraphs:
+    reviews:
+      global_rate_limit:
+        capacity: 400
+        interval: 1s
+    products:
+      deduplicate_query: true
+
+preview_entity_cache:
+  enabled: true
+  # Configure Redis
+  redis:
+    urls: ["redis://redis:6379"]
+    timeout: 5ms # Optional, by default: 2ms
+    ttl: 10s # Optional, by default no expiration
+
+  subgraph:
+    product:
+      enabled: true

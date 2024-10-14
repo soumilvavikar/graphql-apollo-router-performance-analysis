@@ -1,0 +1,3 @@
+{
+    "query": "query Recommended9 {  recommendedProducts {    name    inStock    price    shippingEstimate    reviews {      body      author {        name        username      }    }  }}"
+}
