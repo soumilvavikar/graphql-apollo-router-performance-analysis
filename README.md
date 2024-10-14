@@ -3,7 +3,10 @@
 ## Initial Setup
 
 1. Install Docker.
-2. Execute the `docker compose` command
+2. Execute the `docker compose` command.
+
+- This command will execute and start the local instance so the subgraphs,  the supergraph, and start sending traffic to it.
+- Refer to `docker-compose.yaml` file for more details on what all does the `docker compose` command would do.
 
 ```shell
 #Compose and start docker containers
